@@ -1,7 +1,6 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
-import { createServerClient } from "@/lib/supabase/server";
+import { createServerClientFn } from "@/lib/supabase/server";
 import { requireAdmin } from "@/lib/supabase/require-admin";
 import { invalidateCourses } from "@/lib/cache/invalidate";
 
@@ -12,13 +11,13 @@ import { invalidateCourses } from "@/lib/cache/invalidate";
  */
 
 export async function createCourseAction(formData: FormData) {
-  await requireAdmin({ context: "action" });
+  await requireAdmin({ context: "api" });
 
   const title = formData.get("title") as string;
   const subject = formData.get("subject") as string;
   const description = formData.get("description") as string;
 
-  const supabase = await createServerClient();
+  const supabase = await createServerClientFn();
 
   const { data, error } = await supabase
     .from("courses")
@@ -40,12 +39,12 @@ export async function createCourseAction(formData: FormData) {
 }
 
 export async function updateCourseAction(courseId: string, formData: FormData) {
-  await requireAdmin({ context: "action" });
+  await requireAdmin({ context: "api" });
 
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;
 
-  const supabase = await createServerClient();
+  const supabase = await createServerClientFn();
 
   const { data, error } = await supabase
     .from("courses")
@@ -65,9 +64,9 @@ export async function updateCourseAction(courseId: string, formData: FormData) {
 }
 
 export async function deleteCourseAction(courseId: string) {
-  await requireAdmin({ context: "action" });
+  await requireAdmin({ context: "api" });
 
-  const supabase = await createServerClient();
+  const supabase = await createServerClientFn();
 
   const { error } = await supabase
     .from("courses")
@@ -83,9 +82,9 @@ export async function deleteCourseAction(courseId: string) {
 }
 
 export async function publishCourseAction(courseId: string) {
-  await requireAdmin({ context: "action" });
+  await requireAdmin({ context: "api" });
 
-  const supabase = await createServerClient();
+  const supabase = await createServerClientFn();
 
   const { error } = await supabase
     .from("courses")

@@ -7,8 +7,7 @@
  * - Server-side execution (no client JS overhead)
  */
 
-import { createServerClient } from "@/lib/supabase/server";
-import { unstable_cacheTag as cacheTag } from "next/cache";
+import { createServerClientFn } from "@/lib/supabase/server";
 
 export async function fetchCourses() {
   const supabase = await createServerClient();
