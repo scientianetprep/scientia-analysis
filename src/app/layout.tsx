@@ -69,7 +69,7 @@ export default function RootLayout({
         <div className="bg-orb" aria-hidden="true" />
         <Script 
           src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" 
-          strategy="beforeInteractive"
+          strategy="lazyOnload"
         />
         <link 
           rel="stylesheet" 
