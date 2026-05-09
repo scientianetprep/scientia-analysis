@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   SCIENTIA PREMIUM DESIGN SYSTEM
+   Premium aesthetics with Poppins (Headings) and Lora (Body)
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+@theme inline {
+  /* ── Typography ──────────────────────────────────────────────────────────── */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-lora: 'Lora', serif;
+
+  /* ── Premium Color Palette ──────────────────────────────────────────────── */
+  --color-primary: #d6e3ff;
+  --color-primary-container: #0a192f;
+  --color-on-primary: #0d1c32;
+  --color-on-primary-container: #74829d;
+
+  --color-secondary: #d5e3ff;
+  --color-secondary-container: #354764;
+  --color-on-secondary: #1e314c;
+  --color-on-secondary-container: #a3b6d8;
+
+  --color-tertiary: #06b;
+  --color-tertiary-container: #001e17;
+  --color-on-tertiary: #a7f3d0;
+  --color-on-tertiary-container: #a7f3d0;
+
+  /* Branded Accent (Anthropic Orange) */
+  --color-brand-accent: #d97757;
+
+  --color-background: #0e0e10;
+  --color-surface: #131315;
+  --color-surface-container: #1f1f21;
+  --color-surface-container-low: #1b1b1d;
+  --color-surface-container-high: #2a2a2c;
+  --color-surface-container-highest: #343536;
+  --color-surface-container-lowest: #0e0e10;
+  --color-surface-bright: #39393b;
+  --color-surface-dim: #131315;
+  --color-surface-variant: #343536;
+
+  --color-on-background: #e4e2e4;
+  --color-on-surface: #e4e2e4;
+  --color-on-surface-variant: #a8a8b3;
+  --color-inverse-surface: #303032;
+  --color-inverse-on-surface: #e4e2e4;
+  --color-inverse-primary: #515f78;
+
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+
+  --color-outline: #8f9097;
+  --color-outline-variant: #44474d;
+
+  /* ── Spacing & Borders ───────────────────────────────────────────────────── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+}
+
+/* ── Base Reset & Typography ───────────────────────────────────────────────── */
+*, ::before, ::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Hydration Fix: Suppress browser-injected attribute mismatches globally */
+[suppress-hydration-warning] {
+  visibility: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  line-height: 1.6;
+  font-family: var(--font-lora); /* Default to Lora for body */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--color-on-surface);
+}
+
+/* ── Custom Utilities ───────────────────────────────────────────────────────── */
+@utility glass {
+  background: rgba(19, 19, 21, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(143, 144, 151, 0.08);
+}
+
+@utility glass-card {
+  @apply glass rounded-lg shadow-none border border-outline-variant/15;
+}
+
+@utility surface-card {
+  @apply bg-surface-container-low border border-outline-variant/15 rounded-lg;
+}
+
+@utility premium-input {
+  @apply w-full h-9 bg-surface-container-high border border-outline-variant/20 rounded-md px-3
+         text-sm text-on-surface placeholder:text-outline/50 outline-none transition-colors
+         focus:border-tertiary focus:ring-1 focus:ring-tertiary;
+}
+
+@utility premium-radio {
+  @apply relative flex items-center gap-2 px-3 py-2 rounded-md border border-outline-variant/15
+         cursor-pointer transition-colors hover:bg-surface-container-high text-sm;
+}
+
+@utility btn-premium {
+  @apply h-9 rounded-md font-poppins font-medium text-sm flex items-center justify-center gap-2
+         px-4 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  background: var(--color-tertiary);
+  color: #ffffff;
+}
+
+@utility btn-premium-outline {
+  @apply h-9 rounded-md font-poppins font-medium text-sm flex items-center justify-center gap-2
+         px-4 border border-outline-variant/25 bg-transparent text-on-surface transition-colors
+         hover:bg-surface-container-high disabled:opacity-50;
+}
+
+/* ── Selection & Scrollbar ─────────────────────────────────────────────────── */
+::selection {
+  background-color: var(--color-tertiary);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-container-highest);
+  border-radius: 10px;
+  border: 3px solid var(--color-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-outline);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-surface-container-highest);
+  border-radius: 10px;
+}
+
+/* ── Decorative Background Elements ─────────────────────────────────────────── */
+.bg-orb {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bg-orb::before,
+.bg-orb::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.12;
+}
+
+.bg-orb::before {
+  top: -15%;
+  right: -10%;
+  width: 50%;
+  height: 50%;
+  background: var(--color-tertiary);
+}
+
+.bg-orb::after {
+  bottom: -10%;
+  left: -5%;
+  width: 40%;
+  height: 40%;
+  background: var(--color-brand-accent);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-spin-slow {
+  animation: spinSlow 8s linear infinite;
+}
+
+/* ── Accessibility & Misc ───────────────────────────────────────────────────── */
+.sr-only {
+  @apply absolute w-1 h-1 p-0 -m-1 overflow-hidden whitespace-nowrap border-0;
+  clip: rect(0, 0, 0, 0);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+.font-numeric { font-variant-numeric: tabular-nums; }
+
+/* ── Dark mode preference ─────────────────────────────────────────────────── */
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: light;
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Hide scrollbars but keep functionality */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+article li {
+  color: var(--color-on-surface-variant);
+}
+
+table{
+  color: var(--color-on-surface-variant);
+}
+
+/* Sidebar Resizing Utility */
+.is-resizing-sidebar * {
+  transition: none !important;
+  user-select: none;
+}
+
+:root {
+  --sidebar-offset: 0px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --sidebar-offset: var(--sidebar-width, 224px);
+  }
+}
