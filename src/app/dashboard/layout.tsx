@@ -6,7 +6,6 @@ import { getSessionContext } from "@/lib/supabase/session-cache";
 import { PlatformNotifier } from "@/components/dashboard/PlatformNotifier";
 import { BrowserWarningBanner } from "@/components/dashboard/BrowserWarningBanner";
 import { ActivityPing } from "@/components/dashboard/ActivityPing";
-import { PageTransition } from "@/components/PageTransition";
 import { DeletionWarningBanner } from "@/components/dashboard/DeletionWarningBanner";
 import { AcademicInfoBanner } from "@/components/dashboard/AcademicInfoBanner";
 

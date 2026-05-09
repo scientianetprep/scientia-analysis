@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useCallback, useContext, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LazyMotion, m } from "framer-motion";
+import { loadMotionFeatures } from "@/lib/motion-features";
 import { AlertTriangle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -84,67 +85,69 @@ export function ConfirmProvider({ children }: { children: React.ReactNode }) {
   return (
     <ConfirmCtx.Provider value={{ confirm, alert: alertFn }}>
       {children}
-      <AnimatePresence>
-        {pending && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => close(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            />
-            <motion.div
-              role="alertdialog"
-              aria-modal="true"
-              aria-labelledby="confirm-title"
-              initial={{ opacity: 0, scale: 0.96, y: 8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 4 }}
-              transition={{ type: "spring", damping: 26, stiffness: 320 }}
-              className="relative w-full max-w-sm surface-card p-4 space-y-3"
-            >
-              <div className="flex items-start gap-3">
-                <div className={cn("w-9 h-9 rounded-md grid place-items-center shrink-0", accent)}>
-                  <AlertTriangle className="w-4 h-4" />
+      <LazyMotion features={loadMotionFeatures} strict>
+        <AnimatePresence>
+          {pending && (
+            <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+              <m.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => close(false)}
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              />
+              <m.div
+                role="alertdialog"
+                aria-modal="true"
+                aria-labelledby="confirm-title"
+                initial={{ opacity: 0, scale: 0.96, y: 8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 4 }}
+                transition={{ type: "spring", damping: 26, stiffness: 320 }}
+                className="relative w-full max-w-sm surface-card p-4 space-y-3"
+              >
+                <div className="flex items-start gap-3">
+                  <div className={cn("w-9 h-9 rounded-md grid place-items-center shrink-0", accent)}>
+                    <AlertTriangle className="w-4 h-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 id="confirm-title" className="text-sm font-poppins font-semibold text-on-surface">
+                      {pending.title}
+                    </h3>
+                    {pending.description && (
+                      <p className="mt-1 text-xs text-on-surface-variant leading-relaxed">
+                        {pending.description}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 id="confirm-title" className="text-sm font-poppins font-semibold text-on-surface">
-                    {pending.title}
-                  </h3>
-                  {pending.description && (
-                    <p className="mt-1 text-xs text-on-surface-variant leading-relaxed">
-                      {pending.description}
-                    </p>
+                <div className="flex justify-end gap-2 pt-1">
+                  {pending.mode === "confirm" && (
+                    <button
+                      type="button"
+                      onClick={() => close(false)}
+                      className="h-8 px-3 rounded-md text-xs font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors"
+                    >
+                      {pending.cancelLabel ?? "Cancel"}
+                    </button>
                   )}
-                </div>
-              </div>
-              <div className="flex justify-end gap-2 pt-1">
-                {pending.mode === "confirm" && (
                   <button
                     type="button"
-                    onClick={() => close(false)}
-                    className="h-8 px-3 rounded-md text-xs font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors"
+                    autoFocus
+                    onClick={() => close(true)}
+                    className={cn(
+                      "h-8 px-3 rounded-md text-xs font-poppins font-medium inline-flex items-center gap-1.5 transition-colors",
+                      confirmBtn
+                    )}
                   >
-                    {pending.cancelLabel ?? "Cancel"}
+                    {pending.confirmLabel ?? "Confirm"}
                   </button>
-                )}
-                <button
-                  type="button"
-                  autoFocus
-                  onClick={() => close(true)}
-                  className={cn(
-                    "h-8 px-3 rounded-md text-xs font-poppins font-medium inline-flex items-center gap-1.5 transition-colors",
-                    confirmBtn
-                  )}
-                >
-                  {pending.confirmLabel ?? "Confirm"}
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+                </div>
+              </m.div>
+            </div>
+          )}
+        </AnimatePresence>
+      </LazyMotion>
     </ConfirmCtx.Provider>
   );
 }

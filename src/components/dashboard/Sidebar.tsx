@@ -18,7 +18,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { LazyMotion, m, AnimatePresence } from "framer-motion";
+import { loadMotionFeatures } from "@/lib/motion-features";
 import { Button } from "@/components/ui/button";
 import { CreditBalance } from "@/components/dashboard/CreditBalance";
 
@@ -283,38 +284,40 @@ export function Sidebar({
         )}
       </aside>
 
-      <AnimatePresence>
-        {showLogoutModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowLogoutModal(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 8 }}
-              className="relative w-full max-w-xs rounded-lg border border-outline-variant/15 bg-surface-container-low p-4 flex flex-col gap-4"
-            >
-              <div className="flex flex-col gap-1">
-                <h3 className="text-base font-poppins font-semibold text-on-surface">Sign out?</h3>
-                <p className="text-sm text-on-surface-variant">You will be returned to the login screen.</p>
-              </div>
-              <div className="flex gap-2 justify-end">
-                <Button variant="outline" onClick={() => setShowLogoutModal(false)}>
-                  Cancel
-                </Button>
-                <Button onClick={performLogout} className="bg-brand-accent hover:bg-brand-accent/90">
-                  Sign out
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      <LazyMotion features={loadMotionFeatures} strict>
+        <AnimatePresence>
+          {showLogoutModal && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+              <m.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setShowLogoutModal(false)}
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              />
+              <m.div
+                initial={{ opacity: 0, scale: 0.96, y: 8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 8 }}
+                className="relative w-full max-w-xs rounded-lg border border-outline-variant/15 bg-surface-container-low p-4 flex flex-col gap-4"
+              >
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-base font-poppins font-semibold text-on-surface">Sign out?</h3>
+                  <p className="text-sm text-on-surface-variant">You will be returned to the login screen.</p>
+                </div>
+                <div className="flex gap-2 justify-end">
+                  <Button variant="outline" onClick={() => setShowLogoutModal(false)}>
+                    Cancel
+                  </Button>
+                  <Button onClick={performLogout} className="bg-brand-accent hover:bg-brand-accent/90">
+                    Sign out
+                  </Button>
+                </div>
+              </m.div>
+            </div>
+          )}
+        </AnimatePresence>
+      </LazyMotion>
     </>
   );
 }

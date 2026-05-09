@@ -2,12 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Enable Cache Components for Partial Pre-Rendering (PPR)
-  // Allows "use cache" directive at function/component level
-  cacheComponents: true,
+  // Note: Temporarily disabled to allow force-dynamic routes during migration.
+  // Will be re-enabled in Phase 5 after removing force-dynamic from all routes.
+  // cacheComponents: true,
 
-  // Enable React Compiler for automatic memoization
-  // Replaces manual useMemo/useCallback at compile time
-  reactCompiler: true,
+  // React Compiler requires babel-plugin-react-compiler package
+  // Enable after: npm install --save-dev babel-plugin-react-compiler
+  // For now, relying on Next.js 16 auto-memoization
+  // reactCompiler: true,
 
   experimental: {
     // Tree-shake heavy libraries by rewriting barrel imports to per-file imports
