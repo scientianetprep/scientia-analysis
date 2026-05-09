@@ -3,6 +3,7 @@ import { Poppins, Lora } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { ConfirmProvider } from "@/components/ui/confirm-dialog";
+import { MotionProvider } from "@/components/MotionProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -75,7 +76,9 @@ export default function RootLayout({
           type="text/css" 
           href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" 
         />
-        <ConfirmProvider>{children}</ConfirmProvider>
+        <MotionProvider>
+          <ConfirmProvider>{children}</ConfirmProvider>
+        </MotionProvider>
         <Toaster 
           richColors 
           position="top-right" 

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getSessionContext } from "@/lib/supabase/session-cache";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { MobileNav } from "@/components/dashboard/MobileNav";
-import { PageTransition } from "@/components/PageTransition";
+
 import { ClearStudentViewCookie } from "@/components/admin/ClearStudentViewCookie";
 
 const ADMIN_ROLES = ["admin", "super_admin", "examiner"];
@@ -63,7 +63,7 @@ export default async function AdminLayout({
           style={{ paddingLeft: "var(--sidebar-offset)" }}
         >
           <div className="flex-1 flex flex-col mx-auto w-full max-w-7xl px-4 md:px-6 py-5 md:py-6">
-            <PageTransition>{children}</PageTransition>
+            {children}
           </div>
         </main>
       </div>

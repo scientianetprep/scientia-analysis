@@ -79,7 +79,7 @@ export default async function DashboardLayout({
           <DeletionWarningBanner userId={user.id} />
           <AcademicInfoBanner userId={user.id} />
           <PlatformNotifier userId={user.id} />
-          <PageTransition>{children}</PageTransition>
+          {children}
         </div>
       </main>
     </div>
