@@ -5,6 +5,7 @@ import { env } from "@/lib/env";
 import { UsersClient } from "./users-client";
 
 export const metadata = { title: "User Management — Admin" };
+export const revalidate = 3600; // ISR: revalidate every hour
 export const dynamic = "force-dynamic";
 
 export default async function AdminUsersPage({

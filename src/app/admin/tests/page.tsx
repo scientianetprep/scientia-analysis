@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { DeleteTestButton } from "./DeleteTestButton";
 
 export const metadata = { title: "Test Builder — Admin" };
+export const revalidate = 3600; // ISR: revalidate every hour
 export const dynamic = "force-dynamic";
 
 export default async function AdminTestsPage({

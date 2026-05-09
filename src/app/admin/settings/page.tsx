@@ -1,4 +1,5 @@
 export const metadata = { title: "Settings — Admin" };
+export const revalidate = 3600; // ISR: revalidate every hour
 
 import { AggregateFormulaBuilder } from "@/components/admin/AggregateFormulaBuilder";
 import { createServerClientFn } from "@/lib/supabase/server";

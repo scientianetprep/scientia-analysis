@@ -5,7 +5,7 @@ import { env } from "@/lib/env";
 import { CoursesClient } from "./courses-client";
 
 export const metadata = { title: "Courses — Admin" };
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // ISR: revalidate every hour
 
 export default async function AdminCoursesPage() {
   await requireAdmin();

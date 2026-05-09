@@ -19,6 +19,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 export const metadata = { title: 'Admin Overview — Scientia Prep' };
+export const revalidate = 3600; // ISR: revalidate every hour
 
 function relativeTime(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();
